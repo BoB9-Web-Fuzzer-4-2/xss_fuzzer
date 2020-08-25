@@ -39,7 +39,7 @@ const exit = async (code) => {
 let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !== "");
 
 (async () => {
-	global.driver = await new Builder().forBrowser('chrome').build();
+	let load_driver = [global.driver = new Builder().forBrowser('chrome').build()];
 
 	console.log(`START FUZZING`);
 	console.log(`===============================================================================`);
@@ -56,7 +56,7 @@ let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !=
 		response_list.push(new Promise(async (r) => {
 			let response;
 			if (Object.values(attack_post).length) { //post
-				response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, attack_post, {
+				response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, querystring.encode(attack_post), {
 					headers: {
 						"cookie": cookie
 					}
@@ -71,6 +71,8 @@ let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !=
 			r({response: response, attack_param: attack_param, attack_post: attack_post});
 		}));
 	}
+
+	await Promise.all(load_driver);
 
 	Promise.all(response_list).then(async (list) => {
 		for (let obj of list) {
