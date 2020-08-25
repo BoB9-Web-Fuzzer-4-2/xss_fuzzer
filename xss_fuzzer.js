@@ -1,11 +1,12 @@
 const querystring = require("querystring");
 const axios = require("axios");
 
-let seed_path = "", target_url = "", query = {}, post = {};
+let seed_path = "", target_url = "", query = {}, post = {}, cookie = "";
 
 process.argv.forEach(v => {
 	if (v.startsWith("seed=")) seed_path = v.substr("seed=".length);
 	if (v.startsWith("url=")) target_url = v.substr("url=".length);
+	if (v.startsWith("cookie=")) cookie = v.substr("cookie=".length);
 	if (v.startsWith("query=")) query = querystring.parse(v.substr("query=".length));
 	if (v.startsWith("post=")) post = querystring.parse(v.substr("post=".length));
 });
@@ -22,7 +23,7 @@ const clone = obj => JSON.parse(JSON.stringify(obj));
 const fs = require("fs");
 
 if ((query === {} && post === {}) || !validURL(target_url) || !fs.existsSync(seed_path)) {
-	console.log(`node xss_fuzzer.js seed=path/seed.txt url=URL query=Query post=POST_DATA`);
+	console.log(`node xss_fuzzer.js seed=path/seed.txt url=URL query=Query post=POST_DATA cookie=cookie;`);
 	process.exit(0);
 }
 
@@ -54,9 +55,17 @@ let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !=
 
 		let response;
 		if (Object.values(attack_post).length) { //post
-			response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, attack_post);
+			response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, attack_post, {
+				headers: {
+					"cookie": cookie
+				}
+			});
 		} else {
-			response = await axios.get(`${target_url}?${querystring.encode(attack_param)}`);
+			response = await axios.get(`${target_url}?${querystring.encode(attack_param)}`, {
+				headers: {
+					"cookie": cookie
+				}
+			});
 		}
 
 		let html = `
