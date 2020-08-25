@@ -1,0 +1,17 @@
+{
+  "name": "xss_fuzzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "xss_fuzzer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "chromedriver": "^84.0.1",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}
