@@ -44,7 +44,7 @@ let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !=
 	console.log(`START FUZZING`);
 	console.log(`===============================================================================`);
 
-	let start = Date.now();
+	let start = Date.now(), response_list = [];
 	for (let attack_vec of xss_param) {
 		let attack_param = clone(query), attack_post = clone(post);
 
@@ -53,35 +53,42 @@ let xss_param = fs.readFileSync(seed_path, "utf-8").split("\n").filter(v => v !=
 		for (let k of Object.keys(attack_post))
 			if (attack_post[k] === "{FUZZ}") attack_post[k] = attack_vec;
 
-		let response;
-		if (Object.values(attack_post).length) { //post
-			response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, attack_post, {
-				headers: {
-					"cookie": cookie
-				}
-			});
-		} else {
-			response = await axios.get(`${target_url}?${querystring.encode(attack_param)}`, {
-				headers: {
-					"cookie": cookie
-				}
-			});
-		}
+		response_list.push(new Promise(async (r) => {
+			let response;
+			if (Object.values(attack_post).length) { //post
+				response = await axios.post(`${target_url}?${querystring.encode(attack_param)}`, attack_post, {
+					headers: {
+						"cookie": cookie
+					}
+				});
+			} else {
+				response = await axios.get(`${target_url}?${querystring.encode(attack_param)}`, {
+					headers: {
+						"cookie": cookie
+					}
+				});
+			}
+			r({response: response, attack_param: attack_param, attack_post: attack_post});
+		}));
+	}
 
-		let html = `
+	Promise.all(response_list).then(async (list) => {
+		for (let obj of list) {
+			let html = `
 <script>
 location.reload = location.replace = alert = confirm = () => {};
 window.testSuccess = false;
 window.executeTest = () => testSuccess = true;
 </script>
-${response.data}`;
-		await driver.get(`data:text/html;charset=utf-8,${html}`);
+${obj.response.data}`;
+			await driver.get(`data:text/html;charset=utf-8,${html}`);
 
-		let success = await driver.executeScript(() => testSuccess);
-		console.log(`${response.status} ${response.statusText}\t\t${success ? "SUCCESS" : "FAIL"}\t\t${querystring.encode(attack_param)}\t\t${querystring.encode(attack_post)}`);
-	}
+			let success = await driver.executeScript(() => testSuccess);
+			console.log(`${obj.response.status} ${obj.response.statusText}\t\t${success ? "SUCCESS" : "FAIL"}\t\t${querystring.encode(obj.attack_param)}\t\t${querystring.encode(obj.attack_post)}`);
+		}
 
-	let diff = Date.now() - start;
-	console.log(`time: ${diff}ms`);
-	exit(0);
+		let diff = Date.now() - start;
+		console.log(`time: ${diff}ms`);
+		exit(0);
+	});
 })();
