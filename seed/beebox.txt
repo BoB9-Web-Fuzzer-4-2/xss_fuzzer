@@ -1,4 +1,4 @@
-GET /xss_get.php?firstname{FUZZ}&lastname{FUZZ}&form=submit
+GET /xss_get.php?firstname={FUZZ}&lastname={FUZZ}&form=submit
 POST /xss_post.php
 firstname={FUZZ}&lastname={FUZZ}&form=submit
 GET /xss_json.php?title={FUZZ}&action=search

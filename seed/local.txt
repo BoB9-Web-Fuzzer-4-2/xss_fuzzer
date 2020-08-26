@@ -1,0 +1,3 @@
+GET /xss_get?xss={FUZZ}
+POST /xss_post
+xss={FUZZ}

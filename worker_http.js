@@ -7,7 +7,7 @@ const querystring = require("querystring");
 parentPort.on("message", async ({port, host, url, query, post, cookie, finish}) => {
 	//console.log(`${host}${url}?${query}`, post);
 	let response;
-	if (Object.values(post).length) { //post
+	if (Object.values(querystring.decode(post)).length) { //post
 		response = await axios.post(`${host}${url}?${query}`, post, {
 			headers: {
 				"cookie": cookie

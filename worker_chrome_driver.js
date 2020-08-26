@@ -27,10 +27,13 @@ window.testSuccess = false;
 window.executeTest = () => testSuccess = true;
 </script>
 ${obj.response.data}`;
-	await driver.get(`data:text/html;charset=utf-8,${html}`);
 
-	let success = await driver.executeScript(() => testSuccess);
-	console.log(`${obj.response.status} ${obj.response.statusText}\t\t\t${obj.url}\t\t\t${success ? "SUCCESS" : "FAIL"}\t\t\t${querystring.encode(obj.attack_param)}\t\t\t${querystring.encode(obj.attack_post)}`);
-
+	try {
+		await driver.get(`data:text/html;charset=utf-8,${html}`);
+		let success = await driver.executeScript(() => testSuccess);
+		console.log(`${obj.response.status} ${obj.response.statusText}\t\t\t${obj.url}\t\t\t${success ? "SUCCESS" : "FAIL"}\t\t\t${obj.attack_param}\t\t\t${obj.attack_post}`);
+	}catch (e) {
+		console.log(`${obj.response.status} ${obj.response.statusText}\t\t\t${obj.url}\t\t\tFAIL\t\t\t${obj.attack_param}\t\t\t${obj.attack_post}`);
+	}
 	port.postMessage({});
 });

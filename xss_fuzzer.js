@@ -49,8 +49,8 @@ const httpRequestWorker = (worker, url, attack_param, attack_post, finish, resol
 		port: subchannel.port1,
 		host: host,
 		url: url,
-		query: querystring.encode(attack_param),
-		post: querystring.encode(attack_post),
+		query: attack_param,
+		post: attack_post,
 		cookie: cookie,
 		finish: finish
 	}, [subchannel.port1]);
@@ -113,7 +113,7 @@ const generate_chrome_driver = async() => {
 
 let xss_param = fs.readFileSync(attack_seed, "utf-8").split("\n").filter(v => v !== "");
 
-const chrome_driver_cnt = 5;
+const chrome_driver_cnt = 20;
 (async () => {
 	global.driver_workers = [];
 	let worker_promise = [];
@@ -138,22 +138,19 @@ const chrome_driver_cnt = 5;
 			for (let attack_vec of xss_param) {
 				let attack_param = clone(query), attack_post = clone(post);
 
-				for (let k of Object.keys(attack_param))
-					if (attack_param[k] === "{FUZZ}") attack_param[k] = attack_vec;
-				for (let k of Object.keys(attack_post))
-					if (attack_post[k] === "{FUZZ}") attack_post[k] = attack_vec;
+				for (let k of Object.keys(attack_param)) attack_param[k] = attack_param[k].replace(/\{FUZZ\}/g, attack_vec);
+				for (let k of Object.keys(attack_post)) attack_param[k] = attack_post[k].replace(/\{FUZZ\}/g, attack_vec);
 
 				req_list.push({
 					url: url,
-					attack_param: attack_param,
-					attack_post: attack_post
+					attack_param: querystring.encode(attack_param),
+					attack_post: querystring.encode(attack_post)
 				});
 			}
 		}
 
-
 		let worker = new Worker("./worker_http.js");
-		for (let i = 0; i < 60 && req_list.length; i++) {
+		for (let i = 0; i < 100 && req_list.length; i++) {
 			let req = req_list.pop();
 			httpRequestWorker(worker, req.url, req.attack_param, req.attack_post, false, r);
 		}
