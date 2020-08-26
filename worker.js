@@ -4,16 +4,17 @@ const {
 const axios = require("axios");
 const querystring = require("querystring");
 
-parentPort.on("message", async ({port, url, query, post, cookie, finish}) => {
+parentPort.on("message", async ({port, host, url, query, post, cookie, finish}) => {
+	//console.log(`${host}${url}?${query}`, post);
 	let response;
 	if (Object.values(post).length) { //post
-		response = await axios.post(`${url}?${query}`, post, {
+		response = await axios.post(`${host}${url}?${query}`, post, {
 			headers: {
 				"cookie": cookie
 			}
 		});
 	} else {
-		response = await axios.get(`${url}?${query}`, {
+		response = await axios.get(`${host}${url}?${query}`, {
 			headers: {
 				"cookie": cookie
 			}

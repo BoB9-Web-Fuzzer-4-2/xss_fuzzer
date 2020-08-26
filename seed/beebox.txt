@@ -1,0 +1,15 @@
+GET /xss_get.php?firstname{FUZZ}&lastname{FUZZ}&form=submit
+POST /xss_post.php
+firstname={FUZZ}&lastname={FUZZ}&form=submit
+GET /xss_json.php?title={FUZZ}&action=search
+GET /xss_ajax_2-2.php?title={FUZZ}
+GET /xss_ajax_1-2.php?title={FUZZ}
+GET /xss_eval.php?date={FUZZ}
+GET /xss_href-2.php?name={FUZZ}&action=vote
+POST /xss_login.php
+login={FUZZ}&password={FUZZ}&form=submit
+GET /xss_php_self.php?firstname={FUZZ}&lastname={FUZZ}&form=submit
+POST /xss_stored_1.php
+entry={FUZZ}&blog=submit&entry_add=
+POST /xss_stored_3.php
+secret={FUZZ}&login=bee&action=change
