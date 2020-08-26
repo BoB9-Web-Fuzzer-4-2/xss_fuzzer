@@ -33,14 +33,17 @@ require("chromedriver");
 const {Builder, By, Key, until} = require('selenium-webdriver');
 
 const exit = async (code) => {
-	await driver.session_.then(() => driver.quit()).catch(() => {
-	});
+	for (let worker of driver_workers) {
+		let channel = new MessageChannel();
+		worker.postMessage({port: channel.port1, quit: true}, [channel.port1]);
+		await new Promise(r => channel.port2.on("message", () => r()));
+	}
 	process.exit(code);
 };
 
 let response_list = [], req_list = [];
 
-const toWorker = (worker, url, attack_param, attack_post, finish, resolve) => {
+const httpRequestWorker = (worker, url, attack_param, attack_post, finish, resolve) => {
 	let subchannel = new MessageChannel();
 	worker.postMessage({
 		port: subchannel.port1,
@@ -62,7 +65,7 @@ const toWorker = (worker, url, attack_param, attack_post, finish, resolve) => {
 		if (res.finish) resolve();
 		if (!req_list.length) return;
 		let new_push = req_list.pop();
-		toWorker(
+		httpRequestWorker(
 			worker,
 			new_push.url,
 			new_push.attack_param,
@@ -73,12 +76,48 @@ const toWorker = (worker, url, attack_param, attack_post, finish, resolve) => {
 	});
 };
 
+const xssCheck = async (worker, data_obj, finish, resolve) => {
+	let subchannel = new MessageChannel();
+	worker.postMessage({
+		port: subchannel.port1,
+		obj: JSON.stringify(data_obj)
+	}, [subchannel.port1]);
+	subchannel.port2.on("message", () => {
+		if (finish) resolve();
+		if (!response_list.length) return;
+		let new_push = response_list.pop();
+		xssCheck(
+			worker,
+			new_push,
+			!response_list.length,
+			resolve
+		);
+	});
+};
+
+const generate_chrome_driver = async() => {
+	let ret;
+	await new Promise(r => {
+		let subchannel = new MessageChannel();
+		let worker = new Worker("./worker_chrome_driver.js");
+		worker.postMessage({
+			port: subchannel.port1,
+			creation_driver: true
+		}, [subchannel.port1]);
+		subchannel.port2.on("message", () => {
+			r(ret = worker);
+		});
+	});
+	return ret;
+};
+
 let xss_param = fs.readFileSync(attack_seed, "utf-8").split("\n").filter(v => v !== "");
 
+const chrome_driver_cnt = 5;
 (async () => {
-	let load_driver = [global.driver = new Builder().forBrowser('chrome').build()];
-
-
+	global.driver_workers = [];
+	let worker_promise = [];
+	for (let i = 0; i < chrome_driver_cnt; i++) worker_promise.push(generate_chrome_driver());
 
 	console.log(`START FUZZING`);
 	console.log(`===============================================================================`);
@@ -90,7 +129,7 @@ let xss_param = fs.readFileSync(attack_seed, "utf-8").split("\n").filter(v => v 
 		for (let i = 0; i < urls.length; i++) {
 			if (urls[i].trim() === "") continue;
 			let method = urls[i].split(" ")[0], url = urls[i].split(" ")[1], query = {}, post = {};
-			console.log( urls[i].split(" "))
+
 			query = querystring.decode(url.split("?").slice(1).join("?"));
 			url = url.split("?")[0];
 			if (method === "POST") {
@@ -113,29 +152,21 @@ let xss_param = fs.readFileSync(attack_seed, "utf-8").split("\n").filter(v => v 
 		}
 
 
-		let worker = new Worker("./worker.js");
-		for (let i = 0; i < 12 && req_list.length; i++) {
+		let worker = new Worker("./worker_http.js");
+		for (let i = 0; i < 60 && req_list.length; i++) {
 			let req = req_list.pop();
-			toWorker(worker, req.url, req.attack_param, req.attack_post, false, r);
+			httpRequestWorker(worker, req.url, req.attack_param, req.attack_post, false, r);
 		}
 	});
-
-	await Promise.all(load_driver);
-
 	console.log(`HTTP REQ time: ${Date.now() - start}ms`);
-	for (let obj of response_list) {
-		let html = `
-<script>
-location.reload = location.replace = alert = confirm = () => {};
-window.testSuccess = false;
-window.executeTest = () => testSuccess = true;
-</script>
-${obj.response.data}`;
-		await driver.get(`data:text/html;charset=utf-8,${html}`);
 
-		let success = await driver.executeScript(() => testSuccess);
-		console.log(`${obj.response.status} ${obj.response.statusText}\t\t${obj.url}\t\t${success ? "SUCCESS" : "FAIL"}\t\t${querystring.encode(obj.attack_param)}\t\t${querystring.encode(obj.attack_post)}`);
-	}
+	await Promise.all(worker_promise).then(workers => workers.forEach(worker => driver_workers.push(worker)));
+	await new Promise(r => {
+		for (let i = 0; i < chrome_driver_cnt && response_list.length; i++) {
+			let pop = response_list.pop();
+			xssCheck(driver_workers[i], pop, false, r);
+		}
+	});
 
 	console.log(`time: ${Date.now() - start}ms`);
 	exit(0);

